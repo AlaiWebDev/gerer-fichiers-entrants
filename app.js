@@ -13,10 +13,10 @@ const app = express();
 // Connexion à la base de données MongoDB
 initClientConnection()
     .then(() => {
-        console.log('MongoDB connected');
+        console.log('Connexion MongoDB effectuée avec succès');
     })
     .catch((err) => {
-        console.error('MongoDB connection error:', err);
+        console.error('Erreur de connexion MongoDB :', err);
         process.exit(1); // Arrêter l'application en cas d'erreur de connexion
     });
 
@@ -24,13 +24,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/files', filesRouter);
 
 app.use((req, res, next) => {
-    res.status(404).json({ name: 'API', version: '1.0', status: 404, message: 'not_found' });
+    res.status(404).json({ name: 'API', version: '1.0', status: 404, message: 'introuvable' });
 });
 
 app.use((err, req, res, next) => {
