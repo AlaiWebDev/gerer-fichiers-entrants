@@ -26,13 +26,13 @@ exports.authenticate = async (req, res, next) => {
                 );
                 res.header('Authorization', 'Bearer ' + token);
 
-                return res.status(200).json('authenticate_succeed');
+                return res.status(200).json('authentification_reussie');
                 }
 
-                return res.status(403).json('wrong_credentials');
+                return res.status(403).json('echec_authentification');
             });
         } else {
-            return res.status(404).json('user_not_found');
+            return res.status(404).json('utilisateur_introuvable');
         }
     } catch (error) {
         return res.status(501).json(error);
@@ -48,7 +48,7 @@ exports.getById = async (req, res, next) => {
         if (user) {
             return res.status(200).json(user);
         }
-        return res.status(404).json('user_not_found');
+        return res.status(404).json('utilisateur_introuvable');
     } catch (error) {
         return res.status(501).json(error);
     }
@@ -93,7 +93,7 @@ exports.update = async (req, res, next) => {
             await user.save();
             return res.status(201).json(user);
         }
-        return res.status(404).json('user_not_found');
+        return res.status(404).json('utilisateur_introuvable');
     } catch (error) {
         return res.status(501).json(error);
     }
@@ -105,7 +105,7 @@ exports.delete = async (req, res, next) => {
     try {
         await User.deleteOne({_id: id});
 
-        return res.status(204).json('delete_ok');
+        return res.status(204).json('suppression_ok');
     } catch (error) {
         return res.status(501).json(error);
     }
