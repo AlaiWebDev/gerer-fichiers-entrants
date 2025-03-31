@@ -24,8 +24,9 @@ exports.authenticate = async (req, res, next) => {
                         expiresIn: expireIn
                     }
                 );
+                console.log("Ton Token :", token);
                 res.header('Authorization', 'Bearer ' + token);
-
+                res.cookie('token', token, { httpOnly: true, secure: false, maxAge: expireIn * 1000 });
                 return res.status(200).json('authentification_reussie');
                 }
 
